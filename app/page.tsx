@@ -1,113 +1,141 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import { useState, useRef, useEffect } from 'react';
+
+const Home: React.FC = () => {
+  const [selectedPeriod, setSelectedPeriod] = useState<string | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const timePeriodDetails: Record<string, { description: string; keyDates: string }> = {
+    Hadean: {
+      description: 'Details about the Hadean eon...',
+      keyDates: '4.6 - 4 billion years ago',
+    },
+    Archean: {
+      description: 'Details about the Archean eon...',
+      keyDates: '4 - 2.5 billion years ago',
+    },
+    Proterozoic: {
+      description: 'Details about the Proterozoic eon...',
+      keyDates: '2.5 billion - 541 million years ago',
+    },
+    Phanerozoic: {
+      description: 'Details about the Phanerozoic eon...',
+      keyDates: '541 million years ago - present',
+    },
+    Paleozoic: {
+      description: 'Details about the Paleozoic era...',
+      keyDates: '541 - 252 million years ago',
+    },
+    Mesozoic: {
+      description: 'Details about the Mesozoic era...',
+      keyDates: '252 - 66 million years ago',
+    },
+    Cenozoic: {
+      description: 'Details about the Cenozoic era...',
+      keyDates: '66 million years ago - present',
+    },
+    Cambrian: {
+      description: 'Details about the Cambrian period...',
+      keyDates: '541 - 485 million years ago',
+    },
+    Ordovician: {
+      description: 'Details about the Ordovician period...',
+      keyDates: '485 - 443 million years ago',
+    },
+    Silurian: {
+      description: 'Details about the Silurian period...',
+      keyDates: '443 - 419 million years ago',
+    },
+    Devonian: {
+      description: 'Details about the Devonian period...',
+      keyDates: '419 - 358 million years ago',
+    },
+    Carboniferous: {
+      description: 'Details about the Carboniferous period...',
+      keyDates: '358 - 298 million years ago',
+    },
+    Permian: {
+      description: 'Details about the Permian period...',
+      keyDates: '298 - 252 million years ago',
+    },
+    Triassic: {
+      description: 'Details about the Triassic period...',
+      keyDates: '252 - 201 million years ago',
+    },
+    Jurassic: {
+      description: 'Details about the Jurassic period...',
+      keyDates: '201 - 145 million years ago',
+    },
+    Cretaceous: {
+      description: 'Details about the Cretaceous period...',
+      keyDates: '145 - 66 million years ago',
+    },
+    Paleogene: {
+      description: 'Details about the Paleogene period...',
+      keyDates: '66 - 23 million years ago',
+    },
+    Neogene: {
+      description: 'Details about the Neogene period...',
+      keyDates: '23 - 2.6 million years ago',
+    },
+    Quaternary: {
+      description: 'Details about the Quaternary period...',
+      keyDates: '2.6 million years ago - present',
+    },
+  };
+  const handlePeriodSelect = (periodName: string) => {
+    setSelectedPeriod(periodName);
+  };
+
+  const handleCloseDetail = () => {
+    setSelectedPeriod(null);
+  };
+
+  const handleBackdropClick = (e: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      handleCloseDetail();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleBackdropClick);
+    return () => {
+      document.removeEventListener('mousedown', handleBackdropClick);
+    };
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-b from-gray-200 to-white dark:from-gray-800 dark:to-gray-900">
+      <h1 className="text-4xl font-bold mb-8 text-center">Geological Time Scale</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg">
+        {Object.keys(timePeriodDetails).map((periodName) => (
+          <button
+            key={periodName}
+            className={`p-4 bg-white rounded-lg shadow-lg text-center hover:bg-gray-200 focus:outline-none`}
+            style={{ backgroundColor: `var(--${periodName.toLowerCase()}-color)` }}
+            onClick={() => handlePeriodSelect(periodName)}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            {periodName}
+          </button>
+        ))}
+      </div>
+
+      {selectedPeriod && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div ref={modalRef} className="bg-white p-8 rounded-lg shadow-lg max-w-md">
+            <h2 className="text-xl font-semibold mb-2">{selectedPeriod}</h2>
+            <p className="text-gray-700 mb-4">{timePeriodDetails[selectedPeriod].description}</p>
+            <p className="text-gray-700">Key Dates: {timePeriodDetails[selectedPeriod].keyDates}</p>
+            <button className="block mt-4 mx-auto bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-lg" onClick={handleCloseDetail}>
+              Close
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      )}
+    </div>
   );
-}
+};
+
+export default Home;

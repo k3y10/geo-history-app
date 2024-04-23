@@ -1,33 +1,75 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Define custom CSS variables for color theming */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  --hadean-color: #FFCC00;
+  --archean-color: #FF5733;
+  --proterozoic-color: #58D68D;
+  --phanerozoic-color: #3498db; /* Example color for Phanerozoic, adjust as needed */
+  --paleozoic-color: #e74c3c;
+  --mesozoic-color: #f39c12;
+  --cenozoic-color: #2ecc71;
+  --cambrian-color: #9b59b6;
+  --ordovician-color: #1abc9c;
+  --silurian-color: #16a085;
+  --devonian-color: #27ae60;
+  --carboniferous-color: #2980b9;
+  --permian-color: #34495e;
+  --triassic-color: #8e44ad;
+  --jurassic-color: #2c3e50;
+  --cretaceous-color: #f1c40f;
+  --paleogene-color: #d35400;
+  --neogene-color: #7f8c8d;
+  --quaternary-color: #95a5a6;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  /* Gradient color definitions */
+  --gradient-start: var(--hadean-color); /* Start color: oldest period */
+  --gradient-end: var(--quaternary-color); /* End color: youngest period */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: #000; /* Default text color */
+  background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end)); /* Gradient background */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.dark-mode body {
+  color: #fff; /* Text color in dark mode */
+  background-color: #000; /* Background color in dark mode */
+}
+
+.timeline-button {
+  transition: background-color 0.3s ease;
+}
+
+.timeline-button:hover {
+  background-color: #e2e8f0;
+}
+
+/* Example Tailwind CSS for styling modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-show {
+  display: flex;
 }
