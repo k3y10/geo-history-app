@@ -1,141 +1,225 @@
-'use client'
+'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
+import Slider from 'react-slider';
 
 const Home: React.FC = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState<string | null>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
+  interface GeologicalPeriod {
+    name: string;
+    type: string;
+    details: string;
+    highlights: string[];
+  }
 
-  const timePeriodDetails: Record<string, { description: string; keyDates: string }> = {
-    Hadean: {
-      description: 'Details about the Hadean eon...',
-      keyDates: '4.6 - 4 billion years ago',
+  const geologicalTimeScale: GeologicalPeriod[] = [
+    // Eons
+    {
+      name: 'Hadean',
+      type: 'Eon',
+      details: 'This eon spans from 4600 to 4000 million years ago. It is the oldest eon of Earth\'s existence.',
+      highlights: [
+        'Very volcanic tectonic activity',
+        'Late Heavy Bombardment Theory',
+        'Possibly the time of water formation on Earth'
+      ]
     },
-    Archean: {
-      description: 'Details about the Archean eon...',
-      keyDates: '4 - 2.5 billion years ago',
+    {
+      name: 'Archean',
+      type: 'Eon',
+      details: 'The Archean eon spans from 4000 to 2500 million years ago.',
+      highlights: [
+        'Continental crust formation',
+        'Origin of Life Theories',
+        'First appearance of rocks, minerals, and fossils'
+      ]
     },
-    Proterozoic: {
-      description: 'Details about the Proterozoic eon...',
-      keyDates: '2.5 billion - 541 million years ago',
+    {
+      name: 'Proterozoic',
+      type: 'Eon',
+      details: 'The Proterozoic eon spans from 2500 to 541 million years ago.',
+      highlights: [
+        'Rise of atmospheric oxygen',
+        'Development of photosynthesis',
+        'Includes Paleoproterozoic, Mesoproterozoic, Neoproterozoic eras'
+      ]
     },
-    Phanerozoic: {
-      description: 'Details about the Phanerozoic eon...',
-      keyDates: '541 million years ago - present',
+    {
+      name: 'Phanerozoic',
+      type: 'Eon',
+      details: 'The Phanerozoic eon spans from 541 million years ago to present.',
+      highlights: [
+        'Diversification of life forms',
+        'Advent of complex multicellular organisms',
+        'Includes Paleozoic, Mesozoic, Cenozoic eras'
+      ]
     },
-    Paleozoic: {
-      description: 'Details about the Paleozoic era...',
-      keyDates: '541 - 252 million years ago',
+    // Eras
+    {
+      name: 'Paleoproterozoic',
+      type: 'Era',
+      details: 'The Paleoproterozoic era spans from 2500 to 1600 million years ago.',
+      highlights: [
+        'Great Oxygenation Event',
+        'Assembly of supercontinent',
+        'Rise of photosynthetic life forms'
+      ]
     },
-    Mesozoic: {
-      description: 'Details about the Mesozoic era...',
-      keyDates: '252 - 66 million years ago',
+    {
+      name: 'Mesoproterozoic',
+      type: 'Era',
+      details: 'The Mesoproterozoic era spans from 1600 to 1000 million years ago.',
+      highlights: [
+        'Rodinia supercontinent',
+        'Peak of stromatolites',
+        'Evolution of multicellular organisms'
+      ]
     },
-    Cenozoic: {
-      description: 'Details about the Cenozoic era...',
-      keyDates: '66 million years ago - present',
+    {
+      name: 'Neoproterozoic',
+      type: 'Era',
+      details: 'The Neoproterozoic era spans from 1000 to 541 million years ago.',
+      highlights: [
+        'Snowball Earth or Slushball Earth',
+        'Cambrian Explosion',
+        'Appearance of complex multicellular organisms'
+      ]
     },
-    Cambrian: {
-      description: 'Details about the Cambrian period...',
-      keyDates: '541 - 485 million years ago',
+    {
+      name: 'Paleozoic',
+      type: 'Era',
+      details: 'The Paleozoic era spans from 541 to 251 million years ago.',
+      highlights: [
+        'Great Ordovician Biodiversification Event',
+        'Carboniferous rainforests',
+        'Formation of extensive coal deposits'
+      ]
     },
-    Ordovician: {
-      description: 'Details about the Ordovician period...',
-      keyDates: '485 - 443 million years ago',
+    {
+      name: 'Mesozoic',
+      type: 'Era',
+      details: 'The Mesozoic era spans from 251 to 66 million years ago.',
+      highlights: [
+        'Rise of dinosaurs',
+        'Cretaceous-Paleogene extinction event',
+        'Dominance of reptiles and emergence of mammals'
+      ]
     },
-    Silurian: {
-      description: 'Details about the Silurian period...',
-      keyDates: '443 - 419 million years ago',
+    {
+      name: 'Cenozoic',
+      type: 'Era',
+      details: 'The Cenozoic era spans from 66 million years ago to present.',
+      highlights: [
+        'Rapid diversification of mammals and birds',
+        'Ice age cycles',
+        'Emergence and evolution of Homo sapiens'
+      ]
     },
-    Devonian: {
-      description: 'Details about the Devonian period...',
-      keyDates: '419 - 358 million years ago',
+    // Periods
+    {
+      name: 'Cambrian',
+      type: 'Period',
+      details: 'The Cambrian period spans from 541 to 485 million years ago.',
+      highlights: [
+        'Explosion of marine biodiversity',
+        'First appearance of many animal phyla'
+      ]
     },
-    Carboniferous: {
-      description: 'Details about the Carboniferous period...',
-      keyDates: '358 - 298 million years ago',
+    {
+      name: 'Ordovician',
+      type: 'Period',
+      details: 'The Ordovician period spans from 485 to 443 million years ago.',
+      highlights: [
+        'Great Ordovician Biodiversification Event',
+        'Diversification of marine life'
+      ]
     },
-    Permian: {
-      description: 'Details about the Permian period...',
-      keyDates: '298 - 252 million years ago',
+    {
+      name: 'Silurian',
+      type: 'Period',
+      details: 'The Silurian period spans from 443 to 419 million years ago.',
+      highlights: [
+        'Diversification of jawed fish',
+        'First land plants and terrestrial arthropods'
+      ]
     },
-    Triassic: {
-      description: 'Details about the Triassic period...',
-      keyDates: '252 - 201 million years ago',
+    // Add more periods here...
+    // Epochs
+    {
+      name: 'Pleistocene',
+      type: 'Epoch',
+      details: 'The Pleistocene epoch spans from 2.6 million years ago to 11,700 years ago.',
+      highlights: [
+        'Extensive glaciations',
+        'Megafaunal extinction'
+      ]
     },
-    Jurassic: {
-      description: 'Details about the Jurassic period...',
-      keyDates: '201 - 145 million years ago',
-    },
-    Cretaceous: {
-      description: 'Details about the Cretaceous period...',
-      keyDates: '145 - 66 million years ago',
-    },
-    Paleogene: {
-      description: 'Details about the Paleogene period...',
-      keyDates: '66 - 23 million years ago',
-    },
-    Neogene: {
-      description: 'Details about the Neogene period...',
-      keyDates: '23 - 2.6 million years ago',
-    },
-    Quaternary: {
-      description: 'Details about the Quaternary period...',
-      keyDates: '2.6 million years ago - present',
-    },
-  };
-  const handlePeriodSelect = (periodName: string) => {
-    setSelectedPeriod(periodName);
-  };
-
-  const handleCloseDetail = () => {
-    setSelectedPeriod(null);
-  };
-
-  const handleBackdropClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      handleCloseDetail();
+    {
+      name: 'Holocene',
+      type: 'Epoch',
+      details: 'The Holocene epoch spans from 11,700 years ago to present.',
+      highlights: [
+        'Rise of human civilization',
+        'Impact of anthropogenic activities'
+      ]
     }
-  };
+  ];
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleBackdropClick);
-    return () => {
-      document.removeEventListener('mousedown', handleBackdropClick);
-    };
-  }, []);
+  const [selectedPeriod, setSelectedPeriod] = useState<string | null>(null);
+
+  const handleSliderChange = (value: number) => {
+    const selectedPeriodName = geologicalTimeScale[value].name;
+    setSelectedPeriod(selectedPeriodName);
+  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-b from-gray-200 to-white dark:from-gray-800 dark:to-gray-900">
-      <h1 className="text-4xl font-bold mb-8 text-center">Geological Time Scale</h1>
+    <div className="time-scale-container">
+      <h1 className="text-4xl font-bold mb-4 text-center">Geological Time Scale</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-screen-lg">
-        {Object.keys(timePeriodDetails).map((periodName) => (
-          <button
-            key={periodName}
-            className={`p-4 bg-white rounded-lg shadow-lg text-center hover:bg-gray-200 focus:outline-none`}
-            style={{ backgroundColor: `var(--${periodName.toLowerCase()}-color)` }}
-            onClick={() => handlePeriodSelect(periodName)}
+      {/* Slider Component */}
+      <Slider
+        className="custom-slider"
+        thumbClassName="custom-thumb"
+        trackClassName="custom-track"
+        min={0}
+        max={geologicalTimeScale.length - 1}
+        onChange={handleSliderChange}
+      />
+
+      {/* Timeline Buttons */}
+      <div className="geological-periods">
+        {geologicalTimeScale.map((period, index) => (
+          <div
+            key={index}
+            className={`timeline-button ${period.type}`}
+            onClick={() => setSelectedPeriod(period.name)}
           >
-            {periodName}
-          </button>
+            {period.name}
+          </div>
         ))}
       </div>
 
+      {/* Period Details Popup */}
       {selectedPeriod && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div ref={modalRef} className="bg-white p-8 rounded-lg shadow-lg max-w-md">
-            <h2 className="text-xl font-semibold mb-2">{selectedPeriod}</h2>
-            <p className="text-gray-700 mb-4">{timePeriodDetails[selectedPeriod].description}</p>
-            <p className="text-gray-700">Key Dates: {timePeriodDetails[selectedPeriod].keyDates}</p>
-            <button className="block mt-4 mx-auto bg-gray-200 hover:bg-gray-300 py-2 px-4 rounded-lg" onClick={handleCloseDetail}>
-              Close
-            </button>
-          </div>
+        <div className="period-details">
+          <h2 className="text-xl font-semibold mb-2">{selectedPeriod}</h2>
+          <p className="text-gray-700 mb-4">
+            {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.details}
+          </p>
+          <ul className="list-disc list-inside text-gray-700">
+            {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.highlights.map((highlight, index) => (
+              <li key={index}>{highlight}</li>
+            ))}
+          </ul>
         </div>
-      )}
+      )}     
+      <div className="watermark">
+        <p>Ericka Downs</p>
+        <p>SLCC 04/30/2023</p>
+        <p>Geological Timescale Project</p>
+      </div>
     </div>
   );
 };
 
 export default Home;
+
