@@ -13,101 +13,153 @@
 }
 
 body {
-  color: #000;
-  background: #fff;
+  color: #fff; /* White text */
+  background-color: #000; /* Black background */
   font-family: Arial, sans-serif;
-  padding: 2rem;
+  padding: 0.5rem;
 }
 
-/* Home.css */
-
-.time-scale-container {
-  padding: 2rem;
-  text-align: center; /* Center-align the content */
-}
-
-.custom-slider {
-  width: 80%;
-  margin: 0 auto 2rem; /* Center the slider and add bottom margin */
-}
-
-.custom-track {
-  background-color: #ddd;
-  height: 10px;
-  border-radius: 5px;
-   /* Rounded corners for track */
-}
-
-.custom-thumb {
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-color: #333;
-  outline: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
-}
-
-.geological-periods {
+.page-container {
   display: flex;
-  justify-content: center; /* Center-align period buttons */
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 8rem;
-
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full viewport height */
 }
 
-.timeline-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.container {
+  display: flex;
+  flex: 1; /* Grow container to fill remaining space */
+  padding: 1rem; /* Add padding for spacing */
 }
 
-.timeline-button:hover {
-  background-color: #f0f0f0;
+.left-container {
+  display: flex;
+  width: 25%;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items from top to bottom */
+  align-items: center; /* Center items horizontally */
+}
+
+.time-scale-button {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute items evenly along the vertical axis */
+    height: 100%; /* Fill the entire height of the container */
 }
 
 .Eon {
-  background-color: #9b59b6; /* Purple for Eon */
+  background-color: var(--hadean-color); /* Neon color for Eon */
 }
 
 .Era {
-  background-color: #e74c3c; /* Orange for Era */
+  background-color: var(--archean-color); /* Neon color for Era */
 }
 
 .Period {
-  background-color: #58D68D; /* Green for Period */
+  background-color: var(--proterozoic-color); /* Neon color for Period */
 }
 
 .Epoch {
-  background-color: #f1c40f; /* Red for Epoch */
+  background-color: var(--phanerozoic-color); /* Neon color for Epoch */
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1rem; /* Add horizontal padding */
+  position: relative; /* Position for the slider line */
+}
+
+.line {
+  position: absolute;
+  width: 2px; /* Line width */
+  background-color: #fff; /* White line color */
+  left: 50%; /* Center line horizontally */
+  transform: translateX(-50%); /* Adjust for centering */
+  top: 0; /* Align line to top of container */
+  bottom: 0; /* Extend line to bottom of container */
+}
+
+.custom-slider {
+  height: 100%; /* Match the height of the middle container */
+  width: 10px; /* Set width for slider track */
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1; /* Grow to fill remaining space */
 }
 
 .period-details {
-  margin-top: 8rem;
   padding: 1rem;
+  color: black;
   background-color: #f9f9f9;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left; /* Left-align period details */
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limit width for better readability */
+  overflow-y: auto; /* Enable scrolling for period details */
 }
 
-.period-details h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+.custom-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.period-details p {
-  color: #333;
-  margin-bottom: 1rem;
+.custom-track {
+  width: 10px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-.list-disc {
-  padding-left: 1.5rem;
-}
-  
-.watermark {
-  margin-top: 8rem;
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+  .left-container {
+    height: auto;
+    align-items: center; /* Center items horizontally */
+  }
 
+  .time-scale-button {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    font-size: 10px;
+    flex-direction: column;
+    justify-content: space-between; /* Distribute items evenly along the vertical axis */
+    height: 100%; /* Fill the entire height of the container */
+  }
+
+  .middle-container {
+    align-items: center; /* Center items horizontally */
+  }
+
+  .custom-slider {
+    height: 100%; /* Match the height of the middle container */
+    width: 10px; /* Set width for slider track */
+  }
+
+  .right-container {
+    width: 100%; /* Full width for right container on mobile */
+    align-items: center; /* Center items horizontally */
+  }
+
+  /* Adjust period details for mobile devices */
+  .period-details {
+    padding: 10px;
+     /* Reduce padding for smaller screens */
+  }
 }

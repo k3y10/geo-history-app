@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slider';
 
-const Home: React.FC = () => {
-  interface GeologicalPeriod {
-    name: string;
-    type: string;
-    details: string;
-    highlights: string[];
-  }
+interface GeologicalPeriod {
+  name: string;
+  type: string;
+  details: string;
+  highlights: string[];
+  startYear: number;
+  endYear: number;
+}
 
   const geologicalTimeScale: GeologicalPeriod[] = [
     // Eons
@@ -21,7 +22,9 @@ const Home: React.FC = () => {
         'Very volcanic tectonic activity',
         'Late Heavy Bombardment Theory',
         'Possibly the time of water formation on Earth'
-      ]
+      ],
+      startYear: 4600,
+      endYear: 4000
     },
     {
       name: 'Archean',
@@ -31,7 +34,9 @@ const Home: React.FC = () => {
         'Continental crust formation',
         'Origin of Life Theories',
         'First appearance of rocks, minerals, and fossils'
-      ]
+      ],
+      startYear: 4000,
+      endYear: 2500
     },
     {
       name: 'Proterozoic',
@@ -41,7 +46,9 @@ const Home: React.FC = () => {
         'Rise of atmospheric oxygen',
         'Development of photosynthesis',
         'Includes Paleoproterozoic, Mesoproterozoic, Neoproterozoic eras'
-      ]
+      ],
+      startYear: 2500,
+      endYear: 541
     },
     {
       name: 'Phanerozoic',
@@ -51,7 +58,9 @@ const Home: React.FC = () => {
         'Diversification of life forms',
         'Advent of complex multicellular organisms',
         'Includes Paleozoic, Mesozoic, Cenozoic eras'
-      ]
+      ],
+      startYear: 541,
+      endYear: 0 // The present
     },
     // Eras
     {
@@ -62,7 +71,9 @@ const Home: React.FC = () => {
         'Great Oxygenation Event',
         'Assembly of supercontinent',
         'Rise of photosynthetic life forms'
-      ]
+      ],
+      startYear: 2500,
+      endYear: 1600
     },
     {
       name: 'Mesoproterozoic',
@@ -72,7 +83,9 @@ const Home: React.FC = () => {
         'Rodinia supercontinent',
         'Peak of stromatolites',
         'Evolution of multicellular organisms'
-      ]
+      ],
+      startYear: 1600,
+      endYear: 1000
     },
     {
       name: 'Neoproterozoic',
@@ -82,7 +95,9 @@ const Home: React.FC = () => {
         'Snowball Earth or Slushball Earth',
         'Cambrian Explosion',
         'Appearance of complex multicellular organisms'
-      ]
+      ],
+      startYear: 1000,
+      endYear: 541
     },
     {
       name: 'Paleozoic',
@@ -92,7 +107,9 @@ const Home: React.FC = () => {
         'Great Ordovician Biodiversification Event',
         'Carboniferous rainforests',
         'Formation of extensive coal deposits'
-      ]
+      ],
+      startYear: 541,
+      endYear: 251
     },
     {
       name: 'Mesozoic',
@@ -102,7 +119,9 @@ const Home: React.FC = () => {
         'Rise of dinosaurs',
         'Cretaceous-Paleogene extinction event',
         'Dominance of reptiles and emergence of mammals'
-      ]
+      ],
+      startYear: 251,
+      endYear: 66
     },
     {
       name: 'Cenozoic',
@@ -112,7 +131,9 @@ const Home: React.FC = () => {
         'Rapid diversification of mammals and birds',
         'Ice age cycles',
         'Emergence and evolution of Homo sapiens'
-      ]
+      ],
+      startYear: 66,
+      endYear: 0 // The present
     },
     // Periods
     {
@@ -122,7 +143,9 @@ const Home: React.FC = () => {
       highlights: [
         'Explosion of marine biodiversity',
         'First appearance of many animal phyla'
-      ]
+      ],
+      startYear: 541,
+      endYear: 485
     },
     {
       name: 'Ordovician',
@@ -131,7 +154,9 @@ const Home: React.FC = () => {
       highlights: [
         'Great Ordovician Biodiversification Event',
         'Diversification of marine life'
-      ]
+      ],
+      startYear: 485,
+      endYear: 443
     },
     {
       name: 'Silurian',
@@ -140,9 +165,10 @@ const Home: React.FC = () => {
       highlights: [
         'Diversification of jawed fish',
         'First land plants and terrestrial arthropods'
-      ]
+      ],
+      startYear: 443,
+      endYear: 419
     },
-    // Add more periods here...
     // Epochs
     {
       name: 'Pleistocene',
@@ -151,7 +177,9 @@ const Home: React.FC = () => {
       highlights: [
         'Extensive glaciations',
         'Megafaunal extinction'
-      ]
+      ],
+      startYear: 2.6,
+      endYear: 0 // Present for Holocene
     },
     {
       name: 'Holocene',
@@ -160,66 +188,115 @@ const Home: React.FC = () => {
       highlights: [
         'Rise of human civilization',
         'Impact of anthropogenic activities'
-      ]
+      ],
+      startYear: 11.7,
+      endYear: 0 // The present
     }
   ];
 
+const Header: React.FC = () => {
+  return (
+    <header className="header">
+      <h1 className="title">Geological Timeline Scale</h1>
+    </header>
+  );
+};
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="footer">
+      <p>By: Ericka Downs 04/30/2024 Geo Project</p>
+    </footer>
+  );
+};
+
+const Home: React.FC = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<string | null>(null);
+  const [sliderValue, setSliderValue] = useState<number>(0);
+  const [sliderHeight, setSliderHeight] = useState<number>(0);
+
+  // Calculate the dynamic slider height based on viewport height minus header and footer heights
+  useEffect(() => {
+    const headerHeight = document.querySelector('.header')?.clientHeight || 0;
+    const footerHeight = document.querySelector('.footer')?.clientHeight || 0;
+    const availableHeight = window.innerHeight - headerHeight - footerHeight - 40; // Adjust for padding and margin
+
+    setSliderHeight(availableHeight);
+  }, []);
+
+  const handleTimeScaleButtonClick = (timeScaleName: string) => {
+    const index = geologicalTimeScale.findIndex((period) => period.name === timeScaleName);
+    if (index !== -1) {
+      setSelectedPeriod(timeScaleName);
+      setSliderValue(index); // Update slider value based on selected index
+    }
+  };
 
   const handleSliderChange = (value: number) => {
     const selectedPeriodName = geologicalTimeScale[value].name;
     setSelectedPeriod(selectedPeriodName);
+    setSliderValue(value);
   };
 
   return (
-    <div className="time-scale-container">
-      <h1 className="text-4xl font-bold mb-4 text-center">Geological Time Scale</h1>
+    <div className="page-container">
+      <Header />
 
-      {/* Slider Component */}
-      <Slider
-        className="custom-slider"
-        thumbClassName="custom-thumb"
-        trackClassName="custom-track"
-        min={0}
-        max={geologicalTimeScale.length - 1}
-        onChange={handleSliderChange}
-      />
-
-      {/* Timeline Buttons */}
-      <div className="geological-periods">
-        {geologicalTimeScale.map((period, index) => (
-          <div
-            key={index}
-            className={`timeline-button ${period.type}`}
-            onClick={() => setSelectedPeriod(period.name)}
-          >
-            {period.name}
-          </div>
-        ))}
-      </div>
-
-      {/* Period Details Popup */}
-      {selectedPeriod && (
-        <div className="period-details">
-          <h2 className="text-xl font-semibold mb-2">{selectedPeriod}</h2>
-          <p className="text-gray-700 mb-4">
-            {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.details}
-          </p>
-          <ul className="list-disc list-inside text-gray-700">
-            {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.highlights.map((highlight, index) => (
-              <li key={index}>{highlight}</li>
-            ))}
-          </ul>
+      <div className="container">
+        {/* Left container for time scale buttons */}
+        <div className="left-container">
+          {geologicalTimeScale.map((period, index) => (
+            <button
+              key={index}
+              className={`time-scale-button ${period.type}`}
+              onClick={() => handleTimeScaleButtonClick(period.name)}
+            >
+              {period.name}
+            </button>
+          ))}
         </div>
-      )}     
-      <div className="watermark">
-        <p>Ericka Downs</p>
-        <p>SLCC 04/30/2023</p>
-        <p>Geological Timescale Project</p>
+
+        {/* Middle container with vertical slider */}
+        <div className="middle-container">
+          {/* Horizontal line to indicate selected period */}
+          <div
+            className="line"
+            style={{ top: `${(sliderValue / (geologicalTimeScale.length - 1)) * sliderHeight}px` }}
+          />
+          {/* Vertical Slider */}
+          <Slider
+            className="custom-slider vertical-slider"
+            thumbClassName="custom-thumb"
+            trackClassName="custom-track"
+            min={0}
+            max={geologicalTimeScale.length - 1}
+            orientation="vertical"
+            onChange={handleSliderChange}
+            value={sliderValue}
+          />
+        </div>
+
+        {/* Right container for period details */}
+        <div className="right-container">
+          {selectedPeriod && (
+            <div className="period-details">
+              <h2 className="text-l font-semibold mb-2">{selectedPeriod}</h2>
+              <p className="text-gray-700 mb-4">
+                {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.details}
+              </p>
+              <ul className="list-disc list-inside text-gray-700">
+                {geologicalTimeScale.find((p) => p.name === selectedPeriod)?.highlights.map((highlight, index) => (
+                  <li key={index}>{highlight}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
 
 export default Home;
-
