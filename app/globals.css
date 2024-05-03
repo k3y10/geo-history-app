@@ -6,10 +6,10 @@
 
 /* Define custom CSS variables for color theming */
 :root {
-  --hadean-color: #FFCC00;
-  --archean-color: #FF5733;
-  --proterozoic-color: #58D68D;
-  --phanerozoic-color: #3498db;
+  --eon-color: #8e44ad;      /* Purple for Eon */
+  --era-color: #f39c12;      /* Orange for Era */
+  --period-color: #27ae60;   /* Green for Period */
+  --epoch-color: #e74c3c;    /* Red for Epoch */
 }
 
 body {
@@ -40,29 +40,31 @@ body {
 }
 
 .time-scale-button {
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distribute items evenly along the vertical axis */
-    height: 100%; /* Fill the entire height of the container */
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribute items evenly along the vertical axis */
+  height: 100%; /* Fill the entire height of the container */
+  color: #fff; /* White text */
 }
 
+/* Update color coding based on the provided logic */
 .Eon {
-  background-color: var(--hadean-color); /* Neon color for Eon */
+  background-color: var(--eon-color); /* Purple for Eon */
 }
 
 .Era {
-  background-color: var(--archean-color); /* Neon color for Era */
+  background-color: var(--era-color); /* Orange for Era */
 }
 
 .Period {
-  background-color: var(--proterozoic-color); /* Neon color for Period */
+  background-color: var(--period-color); /* Green for Period */
 }
 
 .Epoch {
-  background-color: var(--phanerozoic-color); /* Neon color for Epoch */
+  background-color: var(--epoch-color); /* Red for Epoch */
 }
 
 .middle-container {
@@ -97,18 +99,6 @@ body {
   flex: 1; /* Grow to fill remaining space */
 }
 
-.period-details {
-  padding: 1rem;
-  color: black;
-  background-color: #f9f9f9;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 400px; /* Limit width for better readability */
-  overflow-y: auto; /* Enable scrolling for period details */
-}
-
 .custom-thumb {
   width: 20px;
   height: 20px;
@@ -137,7 +127,7 @@ body {
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     display: flex;
-    font-size: 10px;
+    font-size: 8px;
     flex-direction: column;
     justify-content: space-between; /* Distribute items evenly along the vertical axis */
     height: 100%; /* Fill the entire height of the container */
@@ -157,9 +147,158 @@ body {
     align-items: center; /* Center items horizontally */
   }
 
-  /* Adjust period details for mobile devices */
   .period-details {
+    padding: 1rem;
+    color: black;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    width: 100%; /* Full width */
+    max-width: 400px; /* Limit width for better readability */
+    max-height: 300px; /* Maximum height for scrollable content */
+    overflow-y: auto; /* Enable vertical scrolling for period details */
+  }
+  
+  .popup {
+    margin-top: 10px;
     padding: 10px;
-     /* Reduce padding for smaller screens */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 200px; /* Maximum height for scrollable pop-up content */
+    overflow-y: auto; /* Enable vertical scrolling for pop-up */
+  }
+  .map-key {
+    flex-direction: column; /* Display map key items in a column for smaller screens */
+    text-align: center; /* Center align map key items */
+  }
+
+  .map-item {
+    margin-right: 0; /* Remove right margin for map items */
+    margin-bottom: 10px; /* Add bottom margin for map items */
   }
 }
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.time-scale-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  flex-direction: row;
+}
+
+.Eon {
+  background-color: var(--eon-color);
+  color: white;
+  font-weight: bold;
+}
+
+.Era {
+  background-color: var(--era-color);
+  color: white;
+  font-weight: bold;
+}
+
+.Period {
+  background-color: var(--period-color);
+  color: white;
+}
+
+.Epoch {
+  background-color: var(--epoch-color);
+  color: white;
+}
+
+.period-details {
+  padding: 2rem;
+  color: black;
+  background-color: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  width: 100%; /* Full width */
+  max-width: 1800px; /* Limit width for better readability */
+  max-height: 700px; /* Maximum height for scrollable content */
+  overflow-y: auto; /* Enable vertical scrolling for period details */
+}
+
+.popup {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px; /* Maximum height for scrollable pop-up content */
+  overflow-y: auto; /* Enable vertical scrolling for pop-up */
+}
+
+/* Add specific styles for the map-key section */
+.map-key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Style for each map item */
+.map-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+/* Style for map color indicators */
+.map-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* Color-specific styles */
+.purple {
+  background-color: var(--eon-color); /* Purple for Eon */
+}
+
+.orange {
+  background-color: var(--era-color); /* Orange for Era */
+}
+
+.green {
+  background-color: var(--period-color); /* Green for Period */
+}
+
+.red {
+  background-color: var(--epoch-color); /* Red for Epoch */
+}
+
+/* Span for map item labels */
+.map-item span {
+  color: #fff; /* White text */
+}
+
