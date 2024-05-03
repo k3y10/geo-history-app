@@ -186,48 +186,7 @@ const Home: React.FC = () => {
             description: 'A period of continued diversification of eukaryotic cells and the emergence of diverse life forms, including protists and ammonoids.'
           }
         ],
-        rocksMineralsFossils: [
-          {
-            name: 'Stromatolites',
-            description: 'Fossilized structures formed by cyanobacteria mats, indicating the presence of early life forms.'
-          },
-          {
-            name: 'Ammonoids',
-            description: 'Extinct marine mollusks with coiled spiral shells, common during the Paleoproterozoic era.'
-          },
-          {
-            name: 'Protista',
-            description: 'A diverse group of eukaryotic microorganisms, including various single-celled organisms and algae.'
-          },
-          {
-            name: 'Meta-sedimentary',
-            description: 'Metamorphic rocks derived from pre-existing sedimentary rocks, altered by heat and pressure.'
-          },
-          {
-            name: 'Meta-volcanic',
-            description: 'Metamorphic rocks derived from volcanic rocks, altered by heat and pressure.'
-          },
-          {
-            name: 'Banded Iron Formations',
-            description: 'Distinctive sedimentary rocks consisting of alternating layers of iron-rich minerals and silica.'
-          },
-          {
-            name: 'Basement Rocks',
-            description: 'The foundation rocks underlying continents, consisting of older igneous and metamorphic rocks.'
-          },
-          {
-            name: 'Tonalite',
-            description: 'A granitic rock with a specific composition of minerals, commonly found in continental crust.'
-          },
-          {
-            name: 'Trondhjemite',
-            description: 'A light-colored intrusive igneous rock similar to granite, often associated with ancient continental crust.'
-          },
-          {
-            name: 'Granodiorite',
-            description: 'An intermediate intrusive rock composed of plagioclase, quartz, and biotite or amphibole, found in continental crust.'
-          }
-        ],
+        rocksMineralsFossils: [],
         organisms: [
           {
             name: 'Bacteria',
@@ -348,20 +307,7 @@ const Home: React.FC = () => {
             description: 'Late Neoproterozoic period known for the appearance of the Ediacaran biota, representing early complex multicellular organisms.'
           }
         ],
-        rocksMineralsFossils: [
-          {
-            name: 'Gneiss Belt',
-            description: 'Region dominated by metamorphic rocks, particularly gneiss, indicating significant tectonic activity.'
-          },
-          {
-            name: 'Metasedimentary Belt',
-            description: 'Belt of rocks that have undergone metamorphism from original sedimentary rocks.'
-          },
-          {
-            name: 'Granulite Terrane',
-            description: 'Geological region characterized by granulite facies metamorphism, often associated with high-grade metamorphic rocks.'
-          }
-        ],
+        rocksMineralsFossils: [],
         organisms: [
           {
             name: 'Stromatolites',
@@ -442,30 +388,7 @@ const Home: React.FC = () => {
             description: 'Late Neoproterozoic period known for the appearance of the Ediacaran biota, representing early complex multicellular organisms.'
           }
         ],
-        rocksMineralsFossils: [
-          {
-            name: 'Tillites',
-            description: 'Glacial deposits containing lithified glacial till, indicative of past ice ages.'
-          },
-          {
-            name: 'Dropstones',
-            description: 'Large rocks that were carried and deposited by glaciers into marine sediments during glacial periods.'
-          }
-        ],
-        organisms: [
-          {
-            name: 'Trilobites',
-            description: 'Early arthropods with segmented bodies, common in marine environments during the Cambrian Period.'
-          },
-          {
-            name: 'Sponges',
-            description: 'Simple, filter-feeding animals that appeared during the Neoproterozoic and became widespread in marine environments.'
-          },
-          {
-            name: 'Archaeocyathids',
-            description: 'Extinct, reef-building organisms with calcareous skeletons, prominent in the early Cambrian.'
-          }
-        ],
+        rocksMineralsFossils: [],
         indexFossils: [
           {
             name: 'Trace Fossils',
@@ -598,20 +521,7 @@ const Home: React.FC = () => {
             description: 'Genus of graptolite used as an index fossil for dating Ordovician strata.'
           }
         ],
-        rocksMineralsFossils: [
-          {
-            name: 'Molasse Sequence',
-            description: 'Fluvial and deltaic deposits formed in foreland basins during tectonic compression.'
-          },
-          {
-            name: 'Flysch Sequence',
-            description: 'Turbidite package deposited in deep marine environments associated with subduction zones.'
-          },
-          {
-            name: 'Burgess Shale',
-            description: 'Famous Lagerstätte fossil site containing exceptionally preserved Cambrian organisms.'
-          }
-        ],
+        rocksMineralsFossils: [],
         rocks: [
           {
             name: 'Sedimentary Sequences (e.g., Sauk, Tippecanoe, Kaskaskia, Absaroka)',
@@ -646,20 +556,7 @@ const Home: React.FC = () => {
             description: 'Final period known for the evolution of flowering plants and the extinction of dinosaurs.'
           }
         ],
-        rocksMineralsFossils: [
-          {
-            name: 'Palisades Sill',
-            description: 'Basaltic intrusion in New Jersey, USA, formed during the Mesozoic era.'
-          },
-          {
-            name: 'Chinle Formation',
-            description: 'Geological formation known for uranium deposits and dinosaur fossils from the Triassic period.'
-          },
-          {
-            name: 'Molasse Sequence',
-            description: 'Sedimentary sequence consisting of fluvial and deltaic deposits, characteristic of the Mesozoic era.'
-          }
-        ],
+        rocksMineralsFossils: [],
         organisms: [
           {
             name: 'Dinosaurs',
@@ -746,21 +643,7 @@ const Home: React.FC = () => {
         description: 'Current epoch within the Quaternary, marked by relatively stable climatic conditions and the rise of human civilizations. Notable for human impacts on the environment and biodiversity.',
       }
     ],
-    rocksMineralsFossils: [], // Placeholder for rocks, minerals, and fossils (add data as needed)
-    organisms: [
-      {
-        name: 'Early Primates',
-        description: 'Emergence of primate ancestors during the Paleocene and their subsequent diversification in the Eocene.',
-      },
-      {
-        name: 'Rapidly Diversifying Mammals and Birds',
-        description: 'Explosive diversification and adaptation of mammals and birds during the Cenozoic, filling ecological niches.',
-      },
-      {
-        name: 'Homo Sapiens',
-        description: 'Appearance and evolution of modern humans (Homo sapiens) during the Quaternary period.',
-      }
-    ],
+    rocksMineralsFossils: [],
     indexFossils: [
       {
         name: 'Scaphites hippocrepis',
@@ -801,6 +684,8 @@ const Home: React.FC = () => {
 }
 
   ];
+
+  
   useEffect(() => {
     const headerHeight = document.querySelector('.header')?.clientHeight || 0;
     const footerHeight = document.querySelector('.footer')?.clientHeight || 0;
