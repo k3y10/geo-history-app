@@ -824,11 +824,76 @@ const Home: React.FC = () => {
     setSliderValue(value);
   };
 
+  const renderAdditionalInfo = (additionalInfo?: TimeScalePeriod['additionalInfo']) => {
+    if (!additionalInfo) return null;
+
+    return (
+      <>
+        {additionalInfo.events.length > 0 && (
+          <div className="info-section">
+            <h3 className="section-title">Events:</h3>
+            {additionalInfo.events.map((event, index) => (
+              <div key={index} className="popup">
+                <h4 style={{ color: getPopupColor(event.name) }}>{event.name}</h4>
+                <p>{event.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        <br></br>
+        {additionalInfo.rocks && additionalInfo.rocks.length > 0 && (
+          <div className="info-section">
+            <h3 className="section-title">Rocks & Minerals:</h3>
+            <ul className='popup'>
+              {additionalInfo.rocks.map((rock, rockIndex) => (
+                <li key={rockIndex}> {rock.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <br></br>
+        {additionalInfo.indexFossils && additionalInfo.indexFossils.length > 0 && (
+          <div className="info-section">
+            <h3 className="section-title">Index Fossils:</h3>
+            <ul className='popup'>
+              {additionalInfo.indexFossils.map((fossil, fossilIndex) => (
+                <li key={fossilIndex}> {fossil.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <br></br>
+        {additionalInfo.organisms && additionalInfo.organisms.length > 0 && (
+          <div className="info-section">
+            <h3 className="section-title text-white">Organisms:</h3>
+            <ul className='popup'>
+              {additionalInfo.organisms.map((organism, organismIndex) => (
+                <li key={organismIndex}> {organism.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+               <br></br>
+        {additionalInfo.rocksMineralsFossils && additionalInfo.rocksMineralsFossils.length > 0 && (
+          <div className="info-section">
+            <h3 className="section-title text-white">Rocks, Minerals, Fossils:</h3>
+            <ul className='popup'>
+              {additionalInfo.rocksMineralsFossils.map((rocksMineralsFossils, rocksMineralsFossilsIndex) => (
+                <li key={rocksMineralsFossilsIndex}> {rocksMineralsFossils.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {/* Add more sections for other types of additional information (subdivisions, etc.) if needed */}
+      </>
+    );
+  };
+
   return (
     <div className="page-container">
-    <header className="header">
-      <h1 className="title">Geological Timeline Scale</h1>
-    </header>
+      <header className="header">
+        <h1 className="title">Geological Timeline Scale</h1>
+      </header>
 
       <div className="container">
         <div className="left-container">
@@ -871,43 +936,27 @@ const Home: React.FC = () => {
                 ))}
               </ul>
               {/* Display additional info based on selected period */}
-              {selectedPeriod.additionalInfo?.events.map((event, index) => (
-                <div key={index} className="popup">
-                  <h3 style={{ color: getPopupColor(event.name) }}>{event.name}</h3>
-                  <p>{event.description}</p>
-                  {/* Display nested information (e.g., rocks, index fossils) */}
-                  {event.name === 'Mesozoic' && (
-                    <div className="nested-popup">
-                      <h4>Rocks & Minerals:</h4>
-                      <ul>
-                        {selectedPeriod.additionalInfo?.rocks?.map((rock, rockIndex) => (
-                          <li key={rockIndex}>{rock.name}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {renderAdditionalInfo(selectedPeriod.additionalInfo)}
             </div>
           )}
-           <div className="map-key">
-        <div className="map-item">
-          <div className="map-color purple"></div>
-          <span>Eon</span>
-        </div>
-        <div className="map-item">
-          <div className="map-color orange"></div>
-          <span>Era</span>
-        </div>
-        <div className="map-item">
-          <div className="map-color green"></div>
-          <span>Period</span>
-        </div>
-        <div className="map-item">
-          <div className="map-color red"></div>
-          <span>Epoch</span>
-        </div>
-      </div>
+          <div className="map-key">
+            <div className="map-item">
+              <div className="map-color purple"></div>
+              <span>Eon</span>
+            </div>
+            <div className="map-item">
+              <div className="map-color orange"></div>
+              <span>Era</span>
+            </div>
+            <div className="map-item">
+              <div className="map-color green"></div>
+              <span>Period</span>
+            </div>
+            <div className="map-item">
+              <div className="map-color red"></div>
+              <span>Epoch</span>
+            </div>
+          </div>
         </div>
       </div>
       <footer className="footer">

@@ -73,7 +73,8 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding: 0 1rem; /* Add horizontal padding */
-  position: relative; /* Position for the slider line */
+  position: relative;
+  flex: 0.10; /* Position for the slider line */
 }
 
 .line {
@@ -89,6 +90,7 @@ body {
 .custom-slider {
   height: 100%; /* Match the height of the middle container */
   width: 10px; /* Set width for slider track */
+  position: relative; /* Ensure relative positioning for absolute child (thumb) */
 }
 
 .right-container {
@@ -100,13 +102,17 @@ body {
 }
 
 .custom-thumb {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: #fff;
   outline: none;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%; /* Position the thumb at the vertical center of its parent */
+  left: 50%; /* Position the thumb at the horizontal center of its parent */
+  transform: translate(-50%, -50%); /* Adjust for centering */
 }
 
 .custom-track {
@@ -301,4 +307,22 @@ body {
 .map-item span {
   color: #fff; /* White text */
 }
+
+/* Add these styles to your global CSS or component-specific styles */
+
+.info-section {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #000;
+  border-radius: 5px;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
 
